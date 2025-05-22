@@ -75,6 +75,14 @@ export default function Login() {
         >
           Login
         </button>
+
+        <hr />
+        <Link
+          href="/forgotpassword"
+          className="text-blue-300 hover:underline mb-2"
+        >
+          Forgot Password?
+        </Link>
         <Link href="/signup">Signup</Link>
       </div>
     </div>

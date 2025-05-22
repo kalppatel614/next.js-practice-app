@@ -75,6 +75,10 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
     });
     console.log("sendEmail: Nodemailer transporter created.");
 
+    const linkPath = emailType === "VERIFY" ? "/verifyemail" : "/resetpassword";
+    const actionText =
+      emailType === "VERIFY" ? "verify your email" : "reset your password";
+
     // Construct email options
     console.log("sendEmail: Constructing mail options.");
     const mailOptions = {
@@ -84,11 +88,9 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
         emailType === "VERIFY" ? "Verify your email" : "Reset your password",
       html: `<p>Click <a href="${
         process.env.DOMAIN || "http://localhost:3000" // Fallback if DOMAIN is not set
-      }/verifyemail?token=${hashedToken}">here</a> to ${
-        emailType === "VERIFY" ? "verify your email" : "reset your password"
-      } or copy and paste the link below. <br>${
+      }${linkPath}?token=${hashedToken}">here</a> to ${actionText} or copy and paste the link below. <br>${
         process.env.DOMAIN || "http://localhost:3000" // Fallback if DOMAIN is not set
-      }/verifyemail?token=${hashedToken}</p>`,
+      }${linkPath}?token=${hashedToken}</p>`,
     };
     console.log("sendEmail: Mail options constructed.");
 
